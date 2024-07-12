@@ -4,16 +4,21 @@ import { Artista } from './artista';
 import { Cancion } from './canciones';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-   artistas: Artista[] =[];
-   canciones: Cancion[] =[];
+  artistas: Artista[] =[];
+  canciones: Cancion[] =[];
+  constructor(private readonly appService: AppService) {
+    let artista1  = new Artista(1,'green day','ninguna','banda','usa',['punk', 'rock'],5000 );
+     this.artistas.push(artista1);
+    this.canciones.push(new Cancion(  1, 'basket case','insomniac',artista1, ['punk'],45252,140));
+  }
+  
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
   @Get('artistas')
   obtenerArtistas(): Artista[]{
-   // this.artistas.push(new Artista(1,'green day','ninguna','banda','usa',['punk', 'rock'],5000 ));
+  
     return this.artistas;
   }
   @Post('artistas')
@@ -25,7 +30,8 @@ export class AppController {
   }
   @Get('canciones')
   obtenerCancion(): Cancion[]{
-    this.canciones.push(new Cancion(  1, 'basket case',1,'insomniac',['punk'],150000,350));
+
+  
     console.log(this.canciones);
     return this.canciones;
   }
