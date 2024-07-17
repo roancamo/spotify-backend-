@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Artista } from './artista';
 import { Cancion } from './canciones';
@@ -21,9 +21,19 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('artistas')
+  @Get('artistas/:id')
+  obtenerArtistaId(@Param('id') id:number ): Artista{
+   for(let i:number=0; i<=this.artistas.length;i++){
+      if(this.artistas[i].id == id){
+        return this.artistas[i];
+      }
+    }
+    return null ;
+ }
+
+ @Get('artistas')
   obtenerArtistas(): Artista[]{
-   // console.log(new Date());
+   //console.log(new Date());
     return this.artistas;
   }
   @Post('artistas')
